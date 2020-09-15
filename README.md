@@ -127,7 +127,9 @@ k scale deployment search --replicas 1
 See [search.yml](./yml-examples/search.yml). To run it, do the following.
 
 ```bash
+# move to the directory with the yml examples
 cd yml-examples
+# make kubernetes apple the config in search.yml
 k apply -f search.yml
 # try and update the replica set and run the above command again.
 # To delete it run:
@@ -135,6 +137,8 @@ k delete -f search.yml
 # try deleting a pod and see it recreate it:
 k delete pod app-elasticsearch-deployment-<your-pod-name>
 ```
+
+In this example, get "kind" types from running `k api-resources`, and look in the column KIND.
 
 ## DNS
 
