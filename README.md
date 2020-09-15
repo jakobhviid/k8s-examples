@@ -138,7 +138,36 @@ k delete -f search.yml
 k delete pod app-elasticsearch-deployment-<your-pod-name>
 ```
 
-In this example, get "kind" types from running `k api-resources`, and look in the column KIND.
+In this example, get "kind" types from running `k api-resources`, and look in the column KIND. Get versions by `k api-versions`. Here you can for example see the apps/v1 version.
+
+To see what the changes of an action would be, run `k apply -f search.yml --dry-run`. While `k apply -f search.yml --dry-run -o yaml` would output the yaml. This can be used with most commands, such as `k create deployment search --image=elasticsearch:2 --dry-run -o yaml`, which would output:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: search
+  name: search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: search
+    spec:
+      containers:
+      - image: elasticsearch:2
+        name: elasticsearch
+        resources: {}
+status: {}
+```
 
 ## DNS
 
