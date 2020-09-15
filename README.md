@@ -148,6 +148,6 @@ docker run -it --network=mynet centos curl -s search:9200
 
 #### K8s load balancer
 
-See [search.yml](./yml-examples/search.yml)
+See the [example in the earlier section](####Elastic-search-example-using-yml).
 
 #### Registry Server
