@@ -152,6 +152,7 @@ deployment.apps/app-elasticsearch-deployment created (dry run)
 ```
 
 This shows that the changes would be to create a service, and a deployment resource.
+Be aware that they added `--dry-run=client` and `--dry-run=server`, which is the new way of making dry runs. Without `=server` it would run the client version of the dry run, which does not take the current status of the deployed resources into account.
 
 It is also possible to output the yaml with `k apply -f search.yml --dry-run -o yaml`. This can be used with most commands, such as `k create deployment search --image=elasticsearch:2 --dry-run -o yaml`, which would output:
 
@@ -204,6 +205,13 @@ DESCRIPTION:
      which routes to the clusterIP. More info:
      https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 ```
+
+## Labels and Annotations
+
+They are a list of `key: values` that can be used for selecting and grouping pods. It could be `teir: frontend`, `env: prod`, or `customer: acme corp`. For example, a load balancer could be set up to only hit the `prod` environment. An example could be `k get pods -l env=prod`, which would match any pods with a label of `prod`. You can also match multiple labels with `k get pods -l env=prod,tier=frontend`.
+It is possible to use the `-l` filter on an several things like `k apply -f file.yaml -l env=prod`, which would apply only services/pods with specific labels.
+
+Labels are set in the metadata section of a YAML spec.
 
 ## DNS
 
