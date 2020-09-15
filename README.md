@@ -79,19 +79,31 @@ Deployment -> replicates -> pod.N -> vol Nic -> container (nginx)
 #### Basic Example
 
 ```bash
+# for watching changes to the configuration
 watch -n1 kubectl get all
+# create a deployment
 k create deployment httpenv --image=bretfisher/httpenv
+# change the scale from 1 to 5
 k scale deployment httpenv --replicas 5
+# expose the deployment/port to the rest of the cluster
 k expose deployment httpenv --port 8888
-K get service
+# see the createsd service like this
+k get service
+# lets run a container inside the environment to see if we can connect (at this point you cannot connect from your own host)
 k run --generator run-pod/v1 tmp-shell --rm -it --image bretfisher/netshoot -- bash
-curl ip:8888
+curl <the ip from service get from before>:8888
+# now lets try a nodeport 
 k expose deployment httpenv --port 8888 --name httpenv-np --type NodePort
+#you can curl it now on the machine.
+#lets try and actually make a load balancer in front of all the services
 k expose deployment httpenv --port 8888 --name httpenv-lb --type LoadBalancer
-k get service (to get port)
+# see the newly added load balancer
+k get service
 #web go to port and refresh (gets same host)
-curl localhost:31377 #(gets different host each time)
-# Now do the same for 8888 (or watch -n1 curl localhost:8888)
+#now lets try from out local command line
+curl localhost:31377 #(notice you get different host each time)
+# Now do the same for 8888
+watch -n1 curl -s localhost:8888
 ```
 
 #### Elastic search example
