@@ -140,7 +140,16 @@ k delete pod app-elasticsearch-deployment-<your-pod-name>
 
 In this example, get "kind" types from running `k api-resources`, and look in the column KIND. Get versions by `k api-versions`. Here you can for example see the apps/v1 version.
 
-To see what the changes of an action would be, run `k apply -f search.yml --dry-run`. While `k apply -f search.yml --dry-run -o yaml` would output the yaml. This can be used with most commands, such as `k create deployment search --image=elasticsearch:2 --dry-run -o yaml`, which would output:
+To see what the changes of an action would be, run `k apply -f search.yml --dry-run`. The output would be:
+
+```bash
+service/app-elasticsearch-service created (dry run)
+deployment.apps/app-elasticsearch-deployment created (dry run)
+```
+
+This shows that the changes would be to create a service, and a deployment resource.
+
+It is also possible to output the yaml with `k apply -f search.yml --dry-run -o yaml`. This can be used with most commands, such as `k create deployment search --image=elasticsearch:2 --dry-run -o yaml`, which would output:
 
 ```yaml
 apiVersion: apps/v1
