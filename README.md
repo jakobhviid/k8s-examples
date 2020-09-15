@@ -189,9 +189,11 @@ Move between namespaces with: \<hostname>.\<namespace>.svc.cluster.local
 - [Stern](https://github.com/wercker/stern) for better log tailing
 - [CI Tools of choice](https://github.com/wercker/stern) - merge yaml files to master and deploy automatically.
 
-### Scaling networking patterns
+## Scaling networking patterns
 
-#### Poor mans load balancer
+For types of strategies look [here](https://kemptechnologies.com/load-balancer/load-balancing-algorithms-techniques/). and 
+
+### Poor mans load balancer
 
 Basically a DNS alias round robin.
 
@@ -204,8 +206,8 @@ docker run -it --network=mynet alpine nslookup search
 docker run -it --network=mynet centos curl -s search:9200
 ```
 
-#### K8s load balancer
+### K8s load balancer
 
 See the [example in the earlier section](####Elastic-search-example-using-yml).
 
-#### Registry Server
+### Registry Server
