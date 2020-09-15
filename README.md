@@ -109,13 +109,17 @@ watch -n1 curl -s localhost:8888
 #### Elastic search example
 
 ```bash
+# create a deployment of elastic search
 k create deployment search --image=elasticsearch:2
+# scale it to 5 instances
 k scale deployment search --replicas 5
+# create a load balancer
 k expose deployment search --port 9200 --name search --type LoadBalancer
+# watch how we connect to different hosts with
 watch -n1 curl localhost:9200
 # Go to to : http://localhost:9200 and refresh - why is this the result?
 k scale deployment search --replicas 1
-# What happened to the curl?
+# What happened to the curl? Yes, now we only get the same result.
 ```
 
 #### Elastic search example using yml
