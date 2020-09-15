@@ -9,9 +9,9 @@ This repo contains simple kubernetes examples for teaching purposes.
 - Install oh my zsh or equivalent.
 - Docker completion - <https://docs.docker.com/compose/completion/>
 - Do the same for kubernetes and make aliases! - <https://thorsten-hans.com/autocompletion-for-kubectl-and-aliases-using-oh-my-zsh>
-- K = kubectl
-- Docker-compose = dc
-- etc.
+  - K = kubectl
+  - Docker-compose = dc
+  - etc.
 
 ## Terminology
 
@@ -104,6 +104,20 @@ watch -n1 curl localhost:9200
 # Go to to : http://localhost:9200 and refresh - why is this the result?
 k scale deployment search --replicas 1
 # What happened to the curl?
+```
+
+#### Elastic search example using yml
+
+See [search.yml](./yml-examples/search.yml). To run it, do the following.
+
+```bash
+cd yml-examples
+k apply -f search.yml
+# try and update the replica set and run the above command again.
+# To delete it run:
+k delete -f search.yml
+# try deleting a pod and see it recreate it:
+k delete pod app-elasticsearch-deployment-<your-pod-name>
 ```
 
 ## DNS
