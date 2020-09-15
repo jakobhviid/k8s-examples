@@ -138,6 +138,10 @@ k delete -f search.yml
 k delete pod app-elasticsearch-deployment-<your-pod-name>
 ```
 
+## Creating your YAML files 
+
+### Digging through the documentation using CLI
+
 In this example, get "kind" types from running `k api-resources`, and look in the column KIND. Get versions by `k api-versions`. Here you can for example see the apps/v1 version.
 
 To see what the changes of an action would be, run `k apply -f search.yml --dry-run`. The output would be:
