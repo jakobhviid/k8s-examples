@@ -11,9 +11,12 @@ To make it easier to navigate the CLI of docker, docker-compose and kubernetes, 
 - Install oh my zsh or equivalent.
 - Docker completion - <https://docs.docker.com/compose/completion/>
 - Do the same for kubernetes and make aliases! - <https://thorsten-hans.com/autocompletion-for-kubectl-and-aliases-using-oh-my-zsh>
-  - K = kubectl
-  - Docker-compose = dc
+  - k = kubectl
+  - d = docker
+  - docker-compose = dc
   - etc.
+
+Most commands in theis section uses `k`instead of `kubectl`. Be aware of this when running the commands.
 
 ## Terminology
 
