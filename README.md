@@ -6,6 +6,8 @@ This repo contains simple kubernetes examples for teaching purposes.
 
 ## The command line - practicalities
 
+To make it easier to navigate the CLI of docker, docker-compose and kubernetes, first make sure autocompletion works in your installation.
+
 - Install oh my zsh or equivalent.
 - Docker completion - <https://docs.docker.com/compose/completion/>
 - Do the same for kubernetes and make aliases! - <https://thorsten-hans.com/autocompletion-for-kubectl-and-aliases-using-oh-my-zsh>
@@ -19,7 +21,7 @@ This repo contains simple kubernetes examples for teaching purposes.
 - K8s = K12345678s = kubernetes
 - Node = single server in the kubernetes cluster
 - Kubelet = kubernetes agent running on nodes
-- Control plane= a set of containers that manage the cluster
+- Control plane = a set of containers that manage the cluster
   - Includes api server, scheduler, controller manager, etcd, coreDNS, and more.
 - Pods
   - pod is one more containers running together on one node
@@ -30,7 +32,7 @@ This repo contains simple kubernetes examples for teaching purposes.
   - Deployment and ReplicaSet (and statefulset, daemonset, job, cronjob etc.)
 - Service
   - A network endpoint to connect to a pod
-  - A persistant connection point in the cluster
+  - A persistent connection point in the cluster
 - Namespace
   - A filter of your view at the command line (filtered group of objects in the cluster)
 
@@ -38,14 +40,14 @@ This repo contains simple kubernetes examples for teaching purposes.
 
 See more [here](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
-- Kubectl run (pod creation - so k run mynginx —image nginx
-- Kubectl create (create some resources via cli or yaml)
-- Kubectl apply (create/update anything via yaml)
+- kubectl run (pod creation - so k run mynginx —image nginx
+- kubectl create (create some resources via cli or yaml)
+- kubectl apply (create/update anything via yaml)
 - kubectl get nginx
-- Kubectl get all (give all info!! 😃 )
-- k describe pod/my-apache-5d589d69c7-ltdd6
+- kubectl get all (give all info!! 😃 )
+- kubectl describe pod/my-apache-5d589d69c7-ltdd6
 - Scaling
-  - kk scale deployment --replicas 3 my-apache
+  - kubectl scale deployment --replicas 3 my-apache
 
 ## Abstractions
 
@@ -53,14 +55,13 @@ Deployment -> replicates -> pod.N -> vol Nic -> container (nginx)
 
 ## Services
 
-- Commands
-- K expose - a consistent endpoint so something else can change behind.
+Services always exist in the context of a deployment/pod. Therefore `k expose` is used in the context of a service to create a consistent endpoint for it.
 
 ### Types of Services (networking)
 
-- ClusterIP (default) 
+- ClusterIP (default)
   - only available in cluster. (Nodes and pods)
-  - Gets its own DNS address. 
+  - Gets its own DNS address.
   - Single virtual ip allocated
   - Pods can reach service on apps port number
 - NodePort
@@ -76,9 +77,13 @@ Deployment -> replicates -> pod.N -> vol Nic -> container (nginx)
 
 More information on how this works can be found in these excellent [slides](https://speakerdeck.com/thockin/kubernetes-a-very-brief-explanation-of-ports).
 
-### Examples
+#### DNS
 
-#### Basic Example
+Move between namespaces with: \<hostname>.\<namespace>.svc.cluster.local
+
+## Examples
+
+### Basic Example
 
 ```bash
 # for watching changes to the configuration
@@ -108,7 +113,7 @@ curl localhost:31377 #(notice you get different host each time)
 watch -n1 curl -s localhost:8888
 ```
 
-#### Elastic search example
+### Elastic search example
 
 ```bash
 # create a deployment of elastic search
@@ -124,7 +129,7 @@ k scale deployment search --replicas 1
 # What happened to the curl? Yes, now we only get the same result.
 ```
 
-#### Elastic search example using yml
+### Elastic search example using yml
 
 See [search.yml](./yml-examples/search.yml). To run it, do the following.
 
@@ -221,20 +226,16 @@ It is possible to use the `-l` filter on an several things like `k apply -f file
 
 Labels are set in the metadata section of a YAML spec.
 
-## DNS
-
-Move between namespaces with: \<hostname>.\<namespace>.svc.cluster.local
-
 ## Other tools
 
 - [Kompose](https://kompose.io) is a good converter for old docker-compose files.
 - [Helm](https://helm.sh) - a package manager.
 - [Stern](https://github.com/wercker/stern) for better log tailing
-- [CI Tools of choice](https://github.com/wercker/stern) - merge yaml files to master and deploy automatically.
+- CI Tools of choice - merge yaml files to master and deploy automatically.
 
 ## Scaling networking patterns
 
-For types of strategies look [here](https://kemptechnologies.com/load-balancer/load-balancing-algorithms-techniques/). and 
+For types of strategies look [here](https://kemptechnologies.com/load-balancer/load-balancing-algorithms-techniques/).
 
 ### Poor mans load balancer
 
@@ -253,4 +254,6 @@ docker run -it --network=mynet centos curl -s search:9200
 
 See the [example in the earlier section](####Elastic-search-example-using-yml).
 
-### Registry Server
+### Registry Server pattern
+
+TODO: update this section.
