@@ -56,7 +56,7 @@ Deployment -> replicates -> pod.N -> vol Nic -> container (nginx)
 - Commands
 - K expose - a consistent endpoint so something else can change behind.
 
-### Types of Services
+### Types of Services (networking)
 
 - ClusterIP (default) 
   - only available in cluster. (Nodes and pods)
@@ -67,12 +67,14 @@ Deployment -> replicates -> pod.N -> vol Nic -> container (nginx)
   - Designed for something outside of the cluster to communicated inside.
   - Creates a high port on each node
 - LoadBalancer
-  - Controls a load balancer endpoint external to the cluster
-  - Creates cluster IP and nodeport
+  - Controls a load balancer endpoint external to the cluster.
+  - Creates cluster IP and NodePort automatically in the background.
   - Tells the hosting provider to provide IP.
 - ExternalName
-  - Not often used
-  - Stuff in your cluster needs to talk to something external, so your cluster can resolve name external services. Using coredns
+  - Not often used.
+  - Stuff in your cluster needs to talk to something external, so your cluster can resolve name external services. Using CoreDNS.
+
+More information on how this works can be found in these excellent [slides](https://speakerdeck.com/thockin/kubernetes-a-very-brief-explanation-of-ports).
 
 ### Examples
 
@@ -138,7 +140,13 @@ k delete -f search.yml
 k delete pod app-elasticsearch-deployment-<your-pod-name>
 ```
 
-## Creating your YAML files 
+## Creating your YAML files
+
+Side note, YAML can also be applied from url's:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.4/aio/deploy/recommended.yaml
+```
 
 ### Digging through the documentation using CLI
 
