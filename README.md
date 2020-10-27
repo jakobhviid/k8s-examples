@@ -114,6 +114,9 @@ k get service
 curl localhost:31377 #(notice you get different host each time)
 # Now do the same for 8888
 watch -n1 curl -s localhost:8888
+
+# Note: to add more more forwards to an existing load balancer use the following:
+k patch svc kubernetes-dashboard -p '{"spec":{"externalIPs":["10.10.10.253"]}}'
 ```
 
 ### Elastic search example
